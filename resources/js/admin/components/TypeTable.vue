@@ -173,7 +173,7 @@ import authAxios from '../auth-axios.js';
       },
       async addType(){
       try {
-        await authAxioss.post('000/api/types',
+        await authAxioss.post('/api/types',
           {
             "name": this.editedItem.name,
           }
@@ -212,7 +212,7 @@ import authAxios from '../auth-axios.js';
       },
 
       async deleteItemConfirm () {
-        await authAxios.delete('0/api/types/'+this.editedItem.id)
+        await authAxios.delete('/api/types/'+this.editedItem.id)
         this.types.splice(this.editedIndex, 1)
         this.closeDelete()
       },

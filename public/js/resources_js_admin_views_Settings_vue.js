@@ -569,7 +569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return authAxioss.post('000/api/types', {
+                return authAxioss.post('/api/types', {
                   "name": _this2.editedItem.name
                 });
 
@@ -650,7 +650,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _auth_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('0/api/types/' + _this4.editedItem.id);
+                return _auth_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/api/types/' + _this4.editedItem.id);
 
               case 2:
                 _this4.types.splice(_this4.editedIndex, 1);
