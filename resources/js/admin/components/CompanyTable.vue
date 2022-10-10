@@ -152,6 +152,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
     export default {
       data: () => ({
         dialog: false,
@@ -183,13 +184,13 @@
           password: '',
         },
       }),
-  
+
       computed: {
         formTitle () {
           return this.editedIndex === -1 ? 'Nowe konto firmy' : 'Edytuj konto firmy'
         },
       },
-  
+
       watch: {
         dialog (val) {
           val || this.close()
@@ -198,15 +199,15 @@
           val || this.closeDelete()
         },
       },
-  
+
       created () {
         this.initialize()
       },
-  
+
       methods: {
         async initialize(){
           try {
-            let {data} = await this.axios.get('http://localhost:8000/api/companies');
+            let {data} = await authAxios.get('/api/companies');
             // console.log(data);
             this.companies = data.data;
           } catch (e) {
@@ -215,7 +216,7 @@
         },
         async addCompany(){
         try {
-          await this.axios.post('http://localhost:8000/api/companies', 
+          await authAxios.post('/api/companies',
             {
               "name": this.editedItem.name,
               "email": this.editedItem.email,
@@ -230,7 +231,7 @@
       },
         async editCompany(){
         try {
-          await this.axios.put('http://localhost:8000/api/companies/'+this.editedItem.id, 
+          await authAxios.put('/api/companies/'+this.editedItem.id,
             {
               "name": this.editedItem.name,
               "email": this.editedItem.email,
@@ -249,20 +250,20 @@
           this.editedItem.id = item.id
           this.dialog = true
         },
-  
+
         deleteItem (item) {
           this.editedIndex = this.companies.indexOf(item)
           this.editedItem = Object.assign({}, item)
           this.editedItem.id = item.id
           this.dialogDelete = true
         },
-  
+
         async deleteItemConfirm () {
-          await this.axios.delete('http://localhost:8000/api/companies/'+this.editedItem.id)
+          await authAxios.delete('/api/companies/'+this.editedItem.id)
           this.companies.splice(this.editedIndex, 1)
           this.closeDelete()
         },
-  
+
         close () {
           this.dialog = false
           this.$nextTick(() => {
@@ -270,7 +271,7 @@
             this.editedIndex = -1
           })
         },
-  
+
         closeDelete () {
           this.dialogDelete = false
           this.$nextTick(() => {
@@ -278,12 +279,12 @@
             this.editedIndex = -1
           })
         },
-  
+
         save () {
           if (this.editedIndex > -1) {
             this.editCompany()
           } else {
-            this.addCompany()  
+            this.addCompany()
           }
         },
       },

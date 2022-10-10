@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
 export default {
 data : () => ({
      employers: []
@@ -40,7 +41,7 @@ created () {
 methods:{
   async initialize(){
         try {
-          let {data} = await this.axios.get('http://localhost:8000/api/employers');
+          let {data} = await authAxios.get('/api/employers');
           // console.log(data);
           this.employers = data.data;
         } catch (e) {

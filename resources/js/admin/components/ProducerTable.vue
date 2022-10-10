@@ -140,6 +140,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
     export default {
       data: () => ({
         dialog: false,
@@ -171,13 +172,13 @@
           date_add: '',
         },
       }),
-  
+
       computed: {
         formTitle () {
           return this.editedIndex === -1 ? 'Nowy producent' : 'Edytuj producenta'
         },
       },
-  
+
       watch: {
         dialog (val) {
           val || this.close()
@@ -186,15 +187,15 @@
           val || this.closeDelete()
         },
       },
-  
+
       created () {
         this.initialize()
       },
-  
+
       methods: {
         async initialize(){
         try {
-          let {data} = await this.axios.get('http://localhost:8000/api/producers');
+          let {data} = await authAxios.get('/api/producers');
           // console.log(data);
           this.producers = data.data;
         } catch (e) {
@@ -203,7 +204,7 @@
       },
       async addCategory(){
       try {
-        await this.axios.post('http://localhost:8000/api/producers', 
+        await authAxios.post('/api/producers',
           {
             "name": this.editedItem.name,
           }
@@ -216,7 +217,7 @@
     },
     async editCategory(){
       try {
-        await this.axios.put('http://localhost:8000/api/producers/'+this.editedItem.id, 
+        await authAxios.put('/api/producers/'+this.editedItem.id,
           {
             "name": this.editedItem.name,
           }
@@ -232,18 +233,18 @@
           this.editedItem = Object.assign({}, item)
           this.dialog = true
         },
-  
+
         deleteItem (item) {
           this.editedIndex = this.producers.indexOf(item)
           this.editedItem = Object.assign({}, item)
           this.dialogDelete = true
         },
-  
+
         deleteItemConfirm () {
           this.producers.splice(this.editedIndex, 1)
           this.closeDelete()
         },
-  
+
         close () {
           this.dialog = false
           this.$nextTick(() => {
@@ -251,7 +252,7 @@
             this.editedIndex = -1
           })
         },
-  
+
         closeDelete () {
           this.dialogDelete = false
           this.$nextTick(() => {
@@ -259,12 +260,12 @@
             this.editedIndex = -1
           })
         },
-  
+
         save () {
         if (this.editedIndex > -1) {
           this.editCategory()
         } else {
-          this.addCategory()  
+          this.addCategory()
         }
       },
       },

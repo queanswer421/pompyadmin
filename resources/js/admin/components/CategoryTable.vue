@@ -114,6 +114,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
   export default {
     data: () => ({
       dialog: false,
@@ -160,7 +161,7 @@
     methods: {
       async initialize(){
         try {
-          let {data} = await this.axios.get('http://localhost:8000/api/categories');
+          let {data} = await authAxios.get('/api/categories');
           // console.log(data);
           this.categories = data.data;
         } catch (e) {
@@ -169,7 +170,7 @@
       },
       async addCategory(){
       try {
-        await this.axios.post('http://localhost:8000/api/categories', 
+        await authAxios.post('/api/categories',
           {
             "name": this.editedItem.name,
           }
@@ -182,7 +183,7 @@
     },
       async editCategory(){
       try {
-        await this.axios.put('http://localhost:8000/api/categories/'+this.editedItem.id, 
+        await authAxios.put('/api/categories/'+this.editedItem.id,
           {
             "name": this.editedItem.name,
           }
@@ -208,7 +209,7 @@
       },
 
       async deleteItemConfirm () {
-        await this.axios.delete('http://localhost:8000/api/categories/'+this.editedItem.id)
+        await authAxios.delete('/api/categories/'+this.editedItem.id)
         this.categories.splice(this.editedIndex, 1)
         this.closeDelete()
       },
@@ -233,7 +234,7 @@
         if (this.editedIndex > -1) {
           this.editCategory()
         } else {
-          this.addCategory()  
+          this.addCategory()
         }
       },
     },

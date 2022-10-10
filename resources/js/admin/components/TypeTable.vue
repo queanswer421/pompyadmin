@@ -52,7 +52,7 @@
                 </v-row>
 
 
- 
+
               </v-container>
             </v-card-text>
 
@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
   export default {
     data: () => ({
       dialog: false,
@@ -163,7 +164,7 @@
     methods: {
       async initialize(){
         try {
-          let {data} = await this.axios.get('http://localhost:8000/api/types');
+          let {data} = await authAxioss.get('/api/types');
           // console.log(data);
           this.types = data.data;
         } catch (e) {
@@ -172,7 +173,7 @@
       },
       async addType(){
       try {
-        await this.axios.post('http://localhost:8000/api/types', 
+        await authAxioss.post('000/api/types',
           {
             "name": this.editedItem.name,
           }
@@ -185,7 +186,7 @@
     },
       async editType(){
       try {
-        await this.axios.put('http://localhost:8000/api/types/'+this.editedItem.id, 
+        await authAxios.put('/api/types/'+this.editedItem.id,
           {
             "name": this.editedItem.name,
           }
@@ -211,7 +212,7 @@
       },
 
       async deleteItemConfirm () {
-        await this.axios.delete('http://localhost:8000/api/types/'+this.editedItem.id)
+        await authAxios.delete('0/api/types/'+this.editedItem.id)
         this.types.splice(this.editedIndex, 1)
         this.closeDelete()
       },
@@ -236,7 +237,7 @@
         if (this.editedIndex > -1) {
           this.editType()
         } else {
-          this.addType()  
+          this.addType()
         }
       },
     },
