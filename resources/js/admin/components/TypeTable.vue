@@ -164,7 +164,7 @@ import authAxios from '../auth-axios.js';
     methods: {
       async initialize(){
         try {
-          let {data} = await authAxioss.get('/api/types');
+          let {data} = await authAxios.get('/api/types');
           // console.log(data);
           this.types = data.data;
         } catch (e) {
@@ -173,7 +173,7 @@ import authAxios from '../auth-axios.js';
       },
       async addType(){
       try {
-        await authAxioss.post('/api/types',
+        await authAxios.post('/api/types',
           {
             "name": this.editedItem.name,
           }

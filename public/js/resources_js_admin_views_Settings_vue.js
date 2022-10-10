@@ -528,7 +528,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var _yield$authAxioss$get, data;
+        var _yield$authAxios$get, data;
 
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -536,11 +536,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return authAxioss.get('/api/types');
+                return _auth_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].get('/api/types');
 
               case 3:
-                _yield$authAxioss$get = _context.sent;
-                data = _yield$authAxioss$get.data;
+                _yield$authAxios$get = _context.sent;
+                data = _yield$authAxios$get.data;
                 // console.log(data);
                 _this.types = data.data;
                 _context.next = 11;
@@ -569,7 +569,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return authAxioss.post('/api/types', {
+                return _auth_axios_js__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/types', {
                   "name": _this2.editedItem.name
                 });
 
