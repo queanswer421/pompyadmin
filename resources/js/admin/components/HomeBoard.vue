@@ -7,7 +7,7 @@
           </v-toolbar> -->
 
           <v-row class="px-5 mt-n6 ml-5">
-            <v-col cols="12" sm="3" 
+            <v-col cols="12" sm="3"
             v-for="(list, idx) in lists" :key="idx">
               <v-card
                 align="center"
@@ -43,21 +43,21 @@
 </template>
 
 <script>
-
+import authAxios from '../auth-axios.js';
 export default {
   name: "HomeBoard",
   data: () => ({
-   
+
     lists: [],
   }),
   created () {
     this.initialize()
   },
-  
+
   methods: {
     async initialize(){
       try {
-        let {data} = await this.axios.get('http://localhost:8000/api/dashboard');
+        let {data} = await authAxios.get('/api/dashboard');
         // console.log(data);
         this.lists = await data;
       } catch (e) {

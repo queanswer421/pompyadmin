@@ -53,7 +53,7 @@
                               label="Producent"
                               required
                             ></v-select>
-                  </v-col>          
+                  </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -74,7 +74,7 @@
                       v-model="editedItem.model"
                       label="Model"
                     ></v-text-field>
-                  </v-col>          
+                  </v-col>
                   <v-col
                     cols="12"
                     sm="6"
@@ -166,7 +166,7 @@
   </v-col>
 
 </v-row>
-                
+
 
                 <v-row>
                   <v-col
@@ -254,6 +254,7 @@
 </template>
 
 <script>
+import authAxios from '../auth-axios.js';
     export default {
       data: () => ({
 
@@ -299,13 +300,13 @@
           category: '',
         },
       }),
-  
+
       computed: {
         formTitle () {
           return this.editedIndex === -1 ? 'Nowa pompa' : 'Edytuj pompę'
         },
       },
-  
+
       watch: {
         dialog (val) {
           val || this.close()
@@ -314,15 +315,15 @@
           val || this.closeDelete()
         },
       },
-  
+
       created () {
         this.initialize()
       },
-  
+
       methods: {
         async initialize(){
           try {
-            let {data} = await this.axios.get('http://localhost:8000/api/pumps');
+            let {data} = await authAxios.get('/api/pumps');
             console.log(data);
             this.pumps = data.data;
           } catch (e) {
@@ -331,7 +332,7 @@
         },
         async addPump(){
         try {
-          await this.axios.post('http://localhost:8000/api/pumps', 
+          await authAxios.post('/api/pumps',
             {
               "name": this.editedItem.name,
               "email": this.editedItem.email,
@@ -346,7 +347,7 @@
       },
         async editPump(){
         try {
-          await this.axios.put('http://localhost:8000/api/pumps/'+this.editedItem.id, 
+          await authAxios.put('/api/pumps/'+this.editedItem.id,
             {
               "name": this.editedItem.name,
               "email": this.editedItem.email,
@@ -365,20 +366,20 @@
           this.editedItem.id = item.id
           this.dialog = true
         },
-  
+
         deleteItem (item) {
           this.editedIndex = this.pumps.indexOf(item)
           this.editedItem = Object.assign({}, item)
           this.editedItem.id = item.id
           this.dialogDelete = true
         },
-  
+
         async deleteItemConfirm () {
-          await this.axios.delete('http://localhost:8000/api/pumps/'+this.editedItem.id)
+          await authAxios.delete('/api/pumps/'+this.editedItem.id)
           this.pumps.splice(this.editedIndex, 1)
           this.closeDelete()
         },
-  
+
         close () {
           this.dialog = false
           this.$nextTick(() => {
@@ -386,7 +387,7 @@
             this.editedIndex = -1
           })
         },
-  
+
         closeDelete () {
           this.dialogDelete = false
           this.$nextTick(() => {
@@ -394,13 +395,13 @@
             this.editedIndex = -1
           })
         },
-  
+
         save () {
           if (this.editedIndex > -1) {
             console.log(this.editedItem.id)
             this.editPump()
           } else {
-            this.addPump()  
+            this.addPump()
           }
         },
       },
