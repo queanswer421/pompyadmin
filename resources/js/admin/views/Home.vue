@@ -10,12 +10,13 @@
 
 <script>
 import HomeBoard from "../components/HomeBoard";
+
 export default {
   name: "Home",
     data: () => ({
-     
+
     }),
-  
+
   components: {
     HomeBoard
   },
