@@ -32,8 +32,8 @@ export default new Vuex.Store({
         let response = await authAxios.post('api/login', payload);
         await console.log(response);
         commit('auth', {
-          token: response.json().token,
-          userId: response.json().id,
+          token: response.data.json().token,
+          userId: response.data.json().id,
           userType: 'administrator'
         });
         const now = new Date();
