@@ -86,7 +86,7 @@
           email: this.email,
           password: this.password
         });
-        await this.$router.push({name: 'administrator'})
+        // await this.$router.push({name: 'administrator'})
       },
       onReset(event){
         event.preventDefault();
