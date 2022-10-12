@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import authAxios from './auth-axios.js';
 import router from './router';
 
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -32,14 +31,14 @@ export default new Vuex.Store({
       try {
         let response = await authAxios.post('api/login', payload);
         commit('auth', {
-          token: response.data.token,
-          userId: response.data.id,
+          token: response.token,
+          userId: response.id,
           userType: 'administrator'
         });
         const now = new Date();
         const endDate = new Date(now.getTime() + 20 * 1000);
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userId', response.data.id);
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('userId', response.id);
         localStorage.setItem('expires', endDate);
         // router.push('/admin');
       } catch(e) {

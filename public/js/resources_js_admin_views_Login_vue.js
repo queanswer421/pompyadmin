@@ -62,12 +62,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                _context.next = 5;
-                return _this.$router.push({
-                  name: 'administrator'
-                });
-
-              case 5:
               case "end":
                 return _context.stop();
             }
